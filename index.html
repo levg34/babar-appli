@@ -9,10 +9,18 @@
 		-->
 		<script>
 function start() {
+	_stop = false;
 	(function(){
 		notifyMe()
+		if (_stop) {
+			return
+		}
 		setTimeout(arguments.callee, 15000);
 	})();
+}
+
+function stop() {
+	_stop = true
 }
 		
 function secondsToHms(d) {
@@ -94,6 +102,9 @@ function notifyMe() {
 	<body>
 		<button onclick="start()">
 			Start
+		</button>
+		<button onclick="stop()">
+			Stop
 		</button>
 		<div id="meuh"></div>
 	</body>
