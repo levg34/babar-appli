@@ -9,7 +9,10 @@
 		-->
 		<script>
 function start() {
-	setInterval(notifyMe(), 30000)
+	(function(){
+		notifyMe()
+		setTimeout(arguments.callee, 15000);
+	})();
 }
 		
 function secondsToHms(d) {
