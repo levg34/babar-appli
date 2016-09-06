@@ -8,18 +8,14 @@
 		<script src="meuh.js"></script>
 		-->
 		<script>
-function start() {
-	_stop = false;
-	(function(){
-		if (!_stop) {
-			notifyMe()
-			setTimeout(arguments.callee, 15000);
-		}
-	})();
-}
+
+var _stop = _stop || false;
+var _intervalId = _intervalId || 0;
 
 function stop() {
-	_stop = true
+	_stop = true;
+	clearInterval(_intervalId);
+	document.getElementById("meuh").innerText = "";
 }
 		
 function secondsToHms(d) {
@@ -41,8 +37,8 @@ function time() {
 
 	return remain
 }
-		
-function notif() {
+
+function notif(showNotif) {
 	var message = secondsToHms(time()) + ' remaining.'
 	
 	if (time()>0) {
@@ -50,14 +46,14 @@ function notif() {
 		  body: message,
 		  icon: "http://www.angelfire.com/art/babar/images/ft.gif"
 		}
-		var notification = new Notification("Not yet...",options);
+		if (showNotif) var notification = new Notification("Not yet...",options);
 	} else {
 		message = "It's time to go!"
 		var options = {
 		  body: message,
 		  icon: "https://www.yvelines.fr/wp-content/uploads/2016/Babar-Wallpapers.jpg"
 		}
-		var notification = new Notification("Babar",options);
+		if (showNotif) var notification = new Notification("Babar",options);
 	}
 	
 	document.getElementById('meuh').innerText = message
@@ -72,7 +68,7 @@ function notifyMe() {
   // Voyons si l'utilisateur est OK pour recevoir des notifications
   else if (Notification.permission === "granted") {
     // Si c'est ok, créons une notification
-	notif()
+	notif(true)
   }
 
   // Sinon, nous avons besoin de la permission de l'utilisateur
@@ -88,7 +84,7 @@ function notifyMe() {
 
       // Si l'utilisateur est OK, on crée une notification
       if (permission === "granted") {
-        notif()
+        notif(true)
       }
     });
   }
@@ -96,6 +92,18 @@ function notifyMe() {
   // Comme ça, si l'utlisateur a refusé toute notification, et que vous respectez ce choix,
   // il n'y a pas besoin de l'ennuyer à nouveau.
 }
+
+function start() {
+	_stop = false;
+	(function(){
+		if (!_stop) {
+			notifyMe();
+			setTimeout(arguments.callee, 15000);
+		}
+	})();
+	_intervalId = setInterval(notif, 500);
+}
+
 		</script>
 	</head>
 	<body>
