@@ -8,7 +8,9 @@
 		<script src="meuh.js"></script>
 		-->
 		<script>
-setInterval(notifyMe(), 30000)
+function start() {
+	setInterval(notifyMe(), 30000)
+}
 		
 function secondsToHms(d) {
 	d = Number(d);
@@ -87,6 +89,9 @@ function notifyMe() {
 		</script>
 	</head>
 	<body>
+		<button onclick="start()">
+			Start
+		</button>
 		<div id="meuh"></div>
 	</body>
 </html>
