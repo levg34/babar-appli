@@ -8,14 +8,49 @@
 		<script src="meuh.js"></script>
 		-->
 		<script>
-function notif() {
-	var options = {
-      body: "It's time to go !",
-      icon: "https://www.yvelines.fr/wp-content/uploads/2016/Babar-Wallpapers.jpg"
-	}
-    var notification = new Notification("Babar",options);
+function secondsToHms(d) {
+	d = Number(d);
+	var h = Math.floor(d / 3600);
+	var m = Math.floor(d % 3600 / 60);
+	var s = Math.floor(d % 3600 % 60);
+	return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
 }
+
+function time() {
+	var remain = 0
+	var _initial = new Date()
+	var _final = new Date()
+	_final.setHours(16)
+	_final.setMinutes(30)
+	_final.setSeconds(0)
+	remain = (_final - _initial)/1000
+
+	return remain
+}
+		
+function notif() {
+	var message = secondsToHms(time()) + ' remaining."
+	
+	if (time()>0) {
+		var options = {
+		  body: message,
+		  icon: "http://www.angelfire.com/art/babar/images/ft.gif"
+		}
+		var notification = new Notification("Not yet...",options);
+	} else {
+		message = "It's time to go!"
+		var options = {
+		  body: message,
+		  icon: "https://www.yvelines.fr/wp-content/uploads/2016/Babar-Wallpapers.jpg"
+		}
+		var notification = new Notification("Babar",options);
+	}
+	
+	document.getElementById('meuh').innerText = message
+}
+
 function notifyMe() {
+	notif()
   // Voyons si le navigateur supporte les notifications
   if (!("Notification" in window)) {
     alert("Ce navigateur ne supporte pas les notifications desktop");
@@ -52,7 +87,8 @@ function notifyMe() {
 	</head>
 	<body>
 		<button onclick="notifyMe()">
-			meuh
+			Start
 		</button>
+		<div id="meuh"></div>
 	</body>
 </html>
