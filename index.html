@@ -11,11 +11,10 @@
 function start() {
 	_stop = false;
 	(function(){
-		notifyMe()
-		if (_stop) {
-			return
+		if (!_stop) {
+			notifyMe()
+			setTimeout(arguments.callee, 15000);
 		}
-		setTimeout(arguments.callee, 15000);
 	})();
 }
 
