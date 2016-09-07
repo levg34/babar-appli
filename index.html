@@ -8,12 +8,18 @@
 		<script src="meuh.js"></script>
 		-->
 		<script>
-
+var notif_interval = 10
+var hours_finish = 16
+var minutes_finish = 30
 var _stop = _stop || false;
 var _intervalId = _intervalId || 0;
 
 function stop() {
-	_stop = true;
+	_stop = true
+	var inputs = document.getElementsByTagName("input")
+	for (var i=0;i<inputs.length;++i) {
+		inputs[i].removeAttribute("disabled")
+	}
 	clearInterval(_intervalId);
 	document.getElementById("meuh").innerText = "";
 }
@@ -30,8 +36,8 @@ function time() {
 	var remain = 0
 	var _initial = new Date()
 	var _final = new Date()
-	_final.setHours(16)
-	_final.setMinutes(30)
+	_final.setHours(hours_finish)
+	_final.setMinutes(minutes_finish)
 	_final.setSeconds(0)
 	remain = (_final - _initial)/1000
 
@@ -94,11 +100,18 @@ function notifyMe() {
 }
 
 function start() {
-	_stop = false;
-	(function(){
+	_stop = false
+	var inputs = document.getElementsByTagName("input")
+	for (var i=0;i<inputs.length;++i) {
+		inputs[i].setAttribute("disabled","")
+	}
+	notif_interval = document.getElementById("notif_interval").value
+	hours_finish = document.getElementById("hours_finish").value
+	minutes_finish = document.getElementById("minutes_finish").value
+	;(function(){
 		if (!_stop) {
 			notifyMe();
-			setTimeout(arguments.callee, 15000);
+			setTimeout(arguments.callee, notif_interval*1000*60);
 		}
 	})();
 	_intervalId = setInterval(notif, 500);
@@ -107,8 +120,13 @@ function start() {
 		</script>
 	</head>
 	<body>
+		I finish work at: <input type="number" id="hours_finish" value="16" min="0" max="23"/> : <input type="number" id="minutes_finish" value="30" min="0" max="59"/><br/><br/>
+		Notified every: <input type="number" id="notif_interval" value="10" min="1" max="60"/> minutes.<br/><br/>
 		<button onclick="start()">
 			Start
+		</button>
+		<button onclick="alert('not implemented')">
+			Disable notifications
 		</button>
 		<button onclick="stop()">
 			Stop
