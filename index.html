@@ -60,7 +60,7 @@ function notif(showNotif) {
 
 function notifyMe() {
 	// Voyons si le navigateur supporte les notifications
-	if (!("Notification" in window)) {
+	if (!("Notification" in window)&&notif_enabled) {
 		alert("Ce navigateur ne supporte pas les notifications desktop");
 		notif_enabled = false
 		document.getElementById('notif_enabled').setAttribute("disabled","")
