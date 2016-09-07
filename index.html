@@ -64,7 +64,7 @@ function notifyMe() {
 		alert("Ce navigateur ne supporte pas les notifications desktop")
 		notif_enabled = false
 		document.getElementById('notif_enabled').setAttribute("disabled","")
-		document.getElementById('notif_enabled').removeAttribute("checked")
+		document.getElementById('notif_enabled').checked = false
 		var use_notifs = document.getElementsByClassName("using_notifs")
 		for (var i=0;i<use_notifs.length;++i) {
 			use_notifs[i].style.display = "none"
@@ -140,8 +140,8 @@ function toggleNotifs() {
 	if (!("Notification" in window)) {
 		if (document.getElementById('notif_enabled').checked) alert("Ce navigateur ne supporte pas les notifications desktop")
 		notif_enabled = false
-		document.getElementById('notif_enabled').removeAttribute("checked")
 		document.getElementById('notif_enabled').setAttribute("disabled","")
+		document.getElementById('notif_enabled').checked = false
 		var use_notifs = document.getElementsByClassName("using_notifs")
 		for (var i=0;i<use_notifs.length;++i) {
 			use_notifs[i].style.display = "none"
