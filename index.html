@@ -61,9 +61,10 @@ function notif(showNotif) {
 function notifyMe() {
 	// Voyons si le navigateur supporte les notifications
 	if (!("Notification" in window)&&notif_enabled) {
-		alert("Ce navigateur ne supporte pas les notifications desktop");
+		alert("Ce navigateur ne supporte pas les notifications desktop")
 		notif_enabled = false
 		document.getElementById('notif_enabled').setAttribute("disabled","")
+		document.getElementById('notif_enabled').removeAttribute("checked")
 		var use_notifs = document.getElementsByClassName("using_notifs")
 		for (var i=0;i<use_notifs.length;++i) {
 			use_notifs[i].style.display = "none"
@@ -137,8 +138,9 @@ function stop() {
 
 function toggleNotifs() {
 	if (!("Notification" in window)) {
-		alert("Ce navigateur ne supporte pas les notifications desktop");
+		if (document.getElementById('notif_enabled').checked) alert("Ce navigateur ne supporte pas les notifications desktop")
 		notif_enabled = false
+		document.getElementById('notif_enabled').removeAttribute("checked")
 		document.getElementById('notif_enabled').setAttribute("disabled","")
 		var use_notifs = document.getElementsByClassName("using_notifs")
 		for (var i=0;i<use_notifs.length;++i) {
