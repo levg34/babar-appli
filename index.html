@@ -8,21 +8,12 @@
 		<script src="meuh.js"></script>
 		-->
 		<script>
+var notif_enabled = true
 var notif_interval = 10
 var hours_finish = 16
 var minutes_finish = 30
 var _stop = _stop || false;
 var _intervalId = _intervalId || 0;
-
-function stop() {
-	_stop = true
-	var inputs = document.getElementsByTagName("input")
-	for (var i=0;i<inputs.length;++i) {
-		inputs[i].removeAttribute("disabled")
-	}
-	clearInterval(_intervalId);
-	document.getElementById("meuh").innerText = "";
-}
 		
 function secondsToHms(d) {
 	d = Number(d);
@@ -45,6 +36,8 @@ function time() {
 }
 
 function notif(showNotif) {
+	showNotif=showNotif&&notif_enabled
+	
 	var message = secondsToHms(time()) + ' remaining.'
 	
 	if (time()>0) {
@@ -101,13 +94,18 @@ function notifyMe() {
 
 function start() {
 	_stop = false
-	var inputs = document.getElementsByTagName("input")
-	for (var i=0;i<inputs.length;++i) {
-		inputs[i].setAttribute("disabled","")
+	var before_start = document.getElementsByClassName("before_start")
+	for (var i=0;i<before_start.length;++i) {
+		before_start[i].setAttribute("disabled","")
+	}
+	var after_start = document.getElementsByClassName("after_start")
+	for (var i=0;i<after_start.length;++i) {
+		after_start[i].removeAttribute("disabled")
 	}
 	notif_interval = document.getElementById("notif_interval").value
 	hours_finish = document.getElementById("hours_finish").value
 	minutes_finish = document.getElementById("minutes_finish").value
+	toogleNotifs()
 	;(function(){
 		if (!_stop) {
 			notifyMe();
@@ -117,18 +115,40 @@ function start() {
 	_intervalId = setInterval(notif, 500);
 }
 
+function stop() {
+	_stop = true
+	var after_start = document.getElementsByClassName("after_start")
+	for (var i=0;i<after_start.length;++i) {
+		after_start[i].setAttribute("disabled","")
+	}
+	var before_start = document.getElementsByClassName("before_start")
+	for (var i=0;i<before_start.length;++i) {
+		before_start[i].removeAttribute("disabled")
+	}
+	clearInterval(_intervalId);
+	document.getElementById("meuh").innerText = "";
+}
+
+function toogleNotifs() {
+	notif_enabled = document.getElementById('notif_enabled').checked
+}
+
+function disableNotifs() {
+	notif_enabled = false
+}
 		</script>
 	</head>
 	<body>
-		I finish work at: <input type="number" id="hours_finish" value="16" min="0" max="23"/> : <input type="number" id="minutes_finish" value="30" min="0" max="59"/><br/><br/>
-		Notified every: <input type="number" id="notif_interval" value="10" min="1" max="60"/> minutes.<br/><br/>
-		<button onclick="start()">
+		I finish work at: <input type="number" id="hours_finish" value="16" min="0" max="23" class="before_start"/> : <input type="number" id="minutes_finish" value="30" min="0" max="59" class="before_start"/><br/>
+		<input type="checkbox" id="notif_enabled" checked onclick="disableNotifs()" class="before_start"/><label for="notif_enabled">Use notifications</label><br/>
+		Notified every: <input type="number" id="notif_interval" value="10" min="1" max="60" class="before_start"/> minutes.<br/><br/>
+		<button class="before_start" onclick="start()">
 			Start
 		</button>
-		<button onclick="alert('not implemented')">
+		<button class="after_start" onclick="disableNotifs()" disabled>
 			Disable notifications
 		</button>
-		<button onclick="stop()">
+		<button class="after_start" onclick="stop()" disabled>
 			Stop
 		</button>
 		<div id="meuh"></div>
