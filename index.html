@@ -59,10 +59,16 @@ function notif(showNotif) {
 }
 
 function notifyMe() {
-  // Voyons si le navigateur supporte les notifications
-  if (!("Notification" in window)) {
-    alert("Ce navigateur ne supporte pas les notifications desktop");
-  }
+	// Voyons si le navigateur supporte les notifications
+	if (!("Notification" in window)) {
+		alert("Ce navigateur ne supporte pas les notifications desktop");
+		notif_enabled = false
+		document.getElementById('notif_enabled').setAttribute("disabled","")
+		var use_notifs = document.getElementsByClassName("using_notifs")
+		for (var i=0;i<use_notifs.length;++i) {
+			use_notifs[i].style.display = "none"
+		}
+	}
 
   // Voyons si l'utilisateur est OK pour recevoir des notifications
   else if (Notification.permission === "granted") {
@@ -130,16 +136,26 @@ function stop() {
 }
 
 function toggleNotifs() {
-	notif_enabled = document.getElementById('notif_enabled').checked
-	if (notif_enabled) {
-		var use_notifs = document.getElementsByClassName("using_notifs")
-		for (var i=0;i<use_notifs.length;++i) {
-			use_notifs[i].removeAttribute("style")
-		}
-	} else {
+	if (!("Notification" in window)) {
+		alert("Ce navigateur ne supporte pas les notifications desktop");
+		notif_enabled = false
+		document.getElementById('notif_enabled').setAttribute("disabled","")
 		var use_notifs = document.getElementsByClassName("using_notifs")
 		for (var i=0;i<use_notifs.length;++i) {
 			use_notifs[i].style.display = "none"
+		}
+	} else {
+		notif_enabled = document.getElementById('notif_enabled').checked
+		if (notif_enabled) {
+			var use_notifs = document.getElementsByClassName("using_notifs")
+			for (var i=0;i<use_notifs.length;++i) {
+				use_notifs[i].removeAttribute("style")
+			}
+		} else {
+			var use_notifs = document.getElementsByClassName("using_notifs")
+			for (var i=0;i<use_notifs.length;++i) {
+				use_notifs[i].style.display = "none"
+			}
 		}
 	}
 }
