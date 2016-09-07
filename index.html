@@ -138,7 +138,7 @@ function stop() {
 
 function toggleNotifs() {
 	if (!("Notification" in window)) {
-		alert("Ce navigateur ne supporte pas les notifications desktop")
+		if (notif_enabled) alert("Ce navigateur ne supporte pas les notifications desktop")
 		notif_enabled = false
 		document.getElementById('notif_enabled').setAttribute("disabled", "")
 		document.getElementById('notif_enabled').checked = false
