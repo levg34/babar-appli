@@ -13,14 +13,14 @@ var notif_interval = 10
 var hours_finish = 16
 var minutes_finish = 30
 var _stop = _stop || false;
-var _intervalId = _intervalId || 0;
+var _intervalId = _intervalId || 0
 
 function secondsToHms(d) {
-	d = Number(d);
-	var h = Math.floor(d / 3600);
-	var m = Math.floor(d % 3600 / 60);
-	var s = Math.floor(d % 3600 % 60);
-	return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
+	d = Number(d)
+	var h = Math.floor(d / 3600)
+	var m = Math.floor(d % 3600 / 60)
+	var s = Math.floor(d % 3600 % 60)
+	return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s)
 }
 
 function time() {
@@ -60,8 +60,8 @@ function notif(showNotif) {
 
 function notifyMe() {
 	// Voyons si le navigateur supporte les notifications
-	if (!("Notification" in window) && notif_enabled) {
-		alert("Ce navigateur ne supporte pas les notifications desktop")
+	if (!("Notification" in window)) {
+		if (notif_enabled) alert("Ce navigateur ne supporte pas les notifications desktop")
 		notif_enabled = false
 		document.getElementById('notif_enabled').setAttribute("disabled", "")
 		document.getElementById('notif_enabled').checked = false
