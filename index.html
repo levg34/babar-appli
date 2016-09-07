@@ -131,6 +131,17 @@ function stop() {
 
 function toogleNotifs() {
 	notif_enabled = document.getElementById('notif_enabled').checked
+	if (notif_enabled) {
+		var use_notifs = document.getElementsByClassName("using_notifs")
+		for (var i=0;i<use_notifs.length;++i) {
+			use_notifs[i].removeAttribute("style")
+		}
+	} else {
+		var use_notifs = document.getElementsByClassName("using_notifs")
+		for (var i=0;i<use_notifs.length;++i) {
+			use_notifs[i].style.display = "none"
+		}
+	}
 }
 
 function disableNotifs() {
@@ -140,12 +151,12 @@ function disableNotifs() {
 	</head>
 	<body>
 		I finish work at: <input type="number" id="hours_finish" value="16" min="0" max="23" class="before_start"/> : <input type="number" id="minutes_finish" value="30" min="0" max="59" class="before_start"/><br/>
-		<input type="checkbox" id="notif_enabled" checked onclick="disableNotifs()" class="before_start"/><label for="notif_enabled">Use notifications</label><br/>
-		Notified every: <input type="number" id="notif_interval" value="10" min="1" max="60" class="before_start"/> minutes.<br/><br/>
+		<input type="checkbox" id="notif_enabled" checked onclick="toogleNotifs()" class="before_start"/><label for="notif_enabled">Use notifications</label><br/>
+		<div class="using_notifs">Notified every: <input type="number" id="notif_interval" value="10" min="1" max="60" class="before_start"/> minutes.<br/><br/></div>
 		<button class="before_start" onclick="start()">
 			Start
 		</button>
-		<button class="after_start" onclick="disableNotifs()" disabled>
+		<button class="after_start using_notifs" onclick="disableNotifs()" disabled>
 			Disable notifications
 		</button>
 		<button class="after_start" onclick="stop()" disabled>
