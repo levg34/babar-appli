@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="meuh.css">
 		<script src="meuh.js"></script>
 		-->
+		<script src="js/js.cookie.js"></script>
 		<script>
 var notif_enabled = true
 var notif_interval = 10
@@ -175,14 +176,18 @@ function disableNotifs() {
 }
 
 function saveParams() {
-	document.cookie='notif_enabled='+notif_enabled
-	document.cookie='notif_interval='+notif_interval
-	document.cookie='hours_finish='+hours_finish
-	document.cookie='minutes_finish='+minutes_finish
+	Cookies.set('notif_enabled', notif_enabled)
+	Cookies.set('notif_interval', notif_interval)
+	Cookies.set('hours_finish', hours_finish)
+	Cookies.set('minutes_finish', minutes_finish)
+	Cookies.set('params', 'true')
 }
 
 function loadParams() {
 	console.log(document.cookie)
+	if (!Cookies.get('params')==undefined) {
+		console.log('oui '+Cookies.get('params'))
+	}
 }
 		</script>
 	</head>
