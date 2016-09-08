@@ -190,6 +190,7 @@ function loadParams() {
 		hours_finish = Cookies.set('hours_finish')
 		minutes_finish = Cookies.set('minutes_finish')
 		
+		document.getElementById('notif_enabled').checked = notif_enabled
 		toggleNotifs()
 		document.getElementById('notif_interval').value = notif_interval
 		document.getElementById('hours_finish').value = hours_finish
