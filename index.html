@@ -173,6 +173,7 @@ function toggleNotifs() {
 function disableNotifs() {
 	document.getElementById('notif_enabled').checked = false
 	toggleNotifs()
+	Cookies.set('notif_enabled', notif_enabled)
 }
 
 function saveParams() {
