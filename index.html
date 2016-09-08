@@ -185,16 +185,12 @@ function saveParams() {
 
 function loadParams() {
 	if (Cookies.get('params')=='true') {
-		notif_enabled = Cookies.get('notif_enabled')
+		bool.TryParse(Cookies.get('notif_enabled'), out notif_enabled)
 		notif_interval = Cookies.set('notif_interval')
 		hours_finish = Cookies.set('hours_finish')
 		minutes_finish = Cookies.set('minutes_finish')
 		
-		if (notif_enabled=='false') {
-			document.getElementById('notif_enabled').checked = false
-		} else {
-			document.getElementById('notif_enabled').checked = true
-		}
+		toggleNotifs()
 		document.getElementById('notif_interval').value = notif_interval
 		document.getElementById('hours_finish').value = hours_finish
 		document.getElementById('minutes_finish').value = minutes_finish
