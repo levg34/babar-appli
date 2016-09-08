@@ -189,6 +189,15 @@ function loadParams() {
 		notif_interval = Cookies.set('notif_interval')
 		hours_finish = Cookies.set('hours_finish')
 		minutes_finish = Cookies.set('minutes_finish')
+		
+		if (!notif_enabled) {
+			document.getElementById('notif_enabled').checked = false
+		} else {
+			document.getElementById('notif_enabled').checked = true
+		}
+		document.getElementById('notif_interval').value = notif_interval
+		document.getElementById('hours_finish').value = hours_finish
+		document.getElementById('minutes_finish').value = minutes_finish
 	}
 }
 		</script>
