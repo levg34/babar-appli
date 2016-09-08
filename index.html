@@ -190,7 +190,7 @@ function loadParams() {
 		hours_finish = Cookies.set('hours_finish')
 		minutes_finish = Cookies.set('minutes_finish')
 		
-		if (!notif_enabled) {
+		if (notif_enabled=='false') {
 			document.getElementById('notif_enabled').checked = false
 		} else {
 			document.getElementById('notif_enabled').checked = true
