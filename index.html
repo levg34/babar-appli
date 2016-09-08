@@ -43,16 +43,16 @@ function notif(showNotif) {
 	if (time() > 0) {
 		var options = {
 			body: message,
-			icon: "http://www.angelfire.com/art/babar/images/ft.gif"
+			icon: 'http://www.angelfire.com/art/babar/images/ft.gif'
 		}
-		if (showNotif) var notification = new Notification("Not yet...", options);
+		if (showNotif) var notification = new Notification('Not yet...', options);
 	} else {
-		message = "It's time to go!"
+		message = 'It's time to go!'
 		var options = {
 			body: message,
-			icon: "https://www.yvelines.fr/wp-content/uploads/2016/Babar-Wallpapers.jpg"
+			icon: 'https://www.yvelines.fr/wp-content/uploads/2016/Babar-Wallpapers.jpg'
 		}
-		if (showNotif) var notification = new Notification("Babar", options);
+		if (showNotif) var notification = new Notification('Babar', options);
 	}
 
 	document.getElementById('meuh').innerText = message
@@ -60,19 +60,19 @@ function notif(showNotif) {
 
 function notifyMe() {
 	// Voyons si le navigateur supporte les notifications
-	if (!("Notification" in window)) {
-		if (notif_enabled) alert("Ce navigateur ne supporte pas les notifications desktop")
+	if (!('Notification' in window)) {
+		if (notif_enabled) alert('Ce navigateur ne supporte pas les notifications desktop')
 		notif_enabled = false
-		document.getElementById('notif_enabled').setAttribute("disabled", "")
+		document.getElementById('notif_enabled').setAttribute('disabled', '')
 		document.getElementById('notif_enabled').checked = false
-		var use_notifs = document.getElementsByClassName("using_notifs")
+		var use_notifs = document.getElementsByClassName('using_notifs')
 		for (var i = 0; i < use_notifs.length; ++i) {
-			use_notifs[i].style.display = "none"
+			use_notifs[i].style.display = 'none'
 		}
 	}
 
 	// Voyons si l'utilisateur est OK pour recevoir des notifications
-	else if (Notification.permission === "granted") {
+	else if (Notification.permission === 'granted') {
 		// Si c'est ok, créons une notification
 		notif(true)
 	}
@@ -89,7 +89,7 @@ function notifyMe() {
 			}
 
 			// Si l'utilisateur est OK, on crée une notification
-			if (permission === "granted") {
+			if (permission === 'granted') {
 				notif(true)
 			}
 		});
@@ -101,19 +101,20 @@ function notifyMe() {
 
 function start() {
 	_stop = false
-	var before_start = document.getElementsByClassName("before_start")
+	var before_start = document.getElementsByClassName('before_start')
 	for (var i = 0; i < before_start.length; ++i) {
-		before_start[i].setAttribute("disabled", "")
+		before_start[i].setAttribute('disabled', '')
 	}
-	var after_start = document.getElementsByClassName("after_start")
+	var after_start = document.getElementsByClassName('after_start')
 	for (var i = 0; i < after_start.length; ++i) {
-		after_start[i].removeAttribute("disabled")
+		after_start[i].removeAttribute('disabled')
 	}
-	notif_interval = document.getElementById("notif_interval").value
-	hours_finish = document.getElementById("hours_finish").value
-	minutes_finish = document.getElementById("minutes_finish").value
-	toggleNotifs();
-	(function() {
+	notif_interval = document.getElementById('notif_interval').value
+	hours_finish = document.getElementById('hours_finish').value
+	minutes_finish = document.getElementById('minutes_finish').value
+	toggleNotifs()
+	saveParams()
+	;(function() {
 		if (!_stop) {
 			notifyMe();
 			var EPSILON=2
@@ -130,39 +131,39 @@ function start() {
 
 function stop() {
 	_stop = true
-	var after_start = document.getElementsByClassName("after_start")
+	var after_start = document.getElementsByClassName('after_start')
 	for (var i = 0; i < after_start.length; ++i) {
-		after_start[i].setAttribute("disabled", "")
+		after_start[i].setAttribute('disabled', '')
 	}
-	var before_start = document.getElementsByClassName("before_start")
+	var before_start = document.getElementsByClassName('before_start')
 	for (var i = 0; i < before_start.length; ++i) {
-		before_start[i].removeAttribute("disabled")
+		before_start[i].removeAttribute('disabled')
 	}
 	clearInterval(_intervalId);
-	document.getElementById("meuh").innerText = "";
+	document.getElementById('meuh').innerText = '';
 }
 
 function toggleNotifs() {
-	if (!("Notification" in window)) {
-		if (document.getElementById('notif_enabled').checked) alert("Ce navigateur ne supporte pas les notifications desktop")
+	if (!('Notification' in window)) {
+		if (document.getElementById('notif_enabled').checked) alert('Ce navigateur ne supporte pas les notifications desktop')
 		notif_enabled = false
-		document.getElementById('notif_enabled').setAttribute("disabled", "")
+		document.getElementById('notif_enabled').setAttribute('disabled', '')
 		document.getElementById('notif_enabled').checked = false
-		var use_notifs = document.getElementsByClassName("using_notifs")
+		var use_notifs = document.getElementsByClassName('using_notifs')
 		for (var i = 0; i < use_notifs.length; ++i) {
-			use_notifs[i].style.display = "none"
+			use_notifs[i].style.display = 'none'
 		}
 	} else {
 		notif_enabled = document.getElementById('notif_enabled').checked
 		if (notif_enabled) {
-			var use_notifs = document.getElementsByClassName("using_notifs")
+			var use_notifs = document.getElementsByClassName('using_notifs')
 			for (var i = 0; i < use_notifs.length; ++i) {
-				use_notifs[i].removeAttribute("style")
+				use_notifs[i].removeAttribute('style')
 			}
 		} else {
-			var use_notifs = document.getElementsByClassName("using_notifs")
+			var use_notifs = document.getElementsByClassName('using_notifs')
 			for (var i = 0; i < use_notifs.length; ++i) {
-				use_notifs[i].style.display = "none"
+				use_notifs[i].style.display = 'none'
 			}
 		}
 	}
@@ -173,13 +174,20 @@ function disableNotifs() {
 	toggleNotifs()
 }
 
-function test() {
-	document.cookie="firstname=John"
+function saveParams() {
+	document.cookie='notif_enabled='+notif_enabled
+	document.cookie='notif_interval='+notif_interval
+	document.cookie='hours_finish='+hours_finish
+	document.cookie='minutes_finish='+minutes_finish
 	console.log(document.cookie)
+}
+
+function loadParams() {
+	console.log('not implemented')
 }
 		</script>
 	</head>
-	<body>
+	<body onload="loadParams()">
 		I finish work at: <input type="number" id="hours_finish" value="16" min="0" max="23" class="before_start"/> : <input type="number" id="minutes_finish" value="30" min="0" max="59" class="before_start"/><br/>
 		<input type="checkbox" id="notif_enabled" checked="true" onclick="toggleNotifs()" class="before_start"/><label for="notif_enabled">Use notifications</label><br/>
 		<div class="using_notifs">Notified every: <input type="number" id="notif_interval" value="10" min="1" max="60" class="before_start"/> minutes.</div><br/>
