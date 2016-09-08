@@ -184,9 +184,11 @@ function saveParams() {
 }
 
 function loadParams() {
-	console.log(document.cookie)
 	if (Cookies.get('params')=='true') {
-		console.log('oui '+Cookies.get('params'))
+		notif_enabled = Cookies.get('notif_enabled')
+		notif_interval = Cookies.set('notif_interval')
+		hours_finish = Cookies.set('hours_finish')
+		minutes_finish = Cookies.set('minutes_finish')
 	}
 }
 		</script>
