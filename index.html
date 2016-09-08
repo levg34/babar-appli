@@ -172,6 +172,11 @@ function disableNotifs() {
 	document.getElementById('notif_enabled').checked = false
 	toggleNotifs()
 }
+
+function test() {
+	document.cookie="firstname=John"
+	console.log(document.cookie)
+}
 		</script>
 	</head>
 	<body>
@@ -188,5 +193,6 @@ function disableNotifs() {
 			Stop
 		</button>
 		<div id="meuh"></div>
+		<button onclick="test()">Cookie</button>
 	</body>
 </html>
