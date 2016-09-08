@@ -185,7 +185,7 @@ function saveParams() {
 
 function loadParams() {
 	if (Cookies.get('params')=='true') {
-		notif_enabled = Convert.ToBoolean(Cookies.get('notif_enabled'))
+		notif_enabled = (Cookies.get('notif_enabled')=='true')
 		notif_interval = Cookies.set('notif_interval')
 		hours_finish = Cookies.set('hours_finish')
 		minutes_finish = Cookies.set('minutes_finish')
