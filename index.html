@@ -185,7 +185,7 @@ function saveParams() {
 
 function loadParams() {
 	console.log(document.cookie)
-	if (!Cookies.get('params')==undefined) {
+	if (Cookies.get('params')=='true') {
 		console.log('oui '+Cookies.get('params'))
 	}
 }
